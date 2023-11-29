@@ -2,32 +2,219 @@
 <html>
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, minimum-scale=1.0"
+    />
+    <meta
+      name="description"
+      content="Audry Nyonata. Senior Software Engineer, Web. Personal Portfolio Page. View Linkedin profile. View Github profile. Made with plain old vanilla JavaScript. This site is responsive."
+    />
     <title>Audry Nyonata | Software Engineer | Portfolio</title>
+    <link rel="icon" type="image/x-icon" href="/images/icon.png" />
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
+      body.modal-open {
+        overflow: hidden;
+      }
+
       .project-root:last-child hr {
         visibility: hidden;
       }
+
+      .icon-bar:hover {
+        cursor: pointer;
+      }
+
+      .icon-bar {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 22px;
+        width: 22px;
+      }
+
+      .icon-bar .bar {
+        height: 3px;
+        width: 100%;
+        background-color: black;
+        transition: width 250ms ease-in-out, height 250ms ease-in-out,
+          background-color 550ms ease-in-out;
+      }
+
+      .icon-bar.white .bar {
+        background-color: white;
+        transition: background-color 550ms ease-in;
+      }
+
+      .icon-bar .x:nth-of-type(1) {
+        transition: all 250ms ease-in-out;
+        transform: rotate(45deg);
+        transform-origin: top left;
+        width: 28px;
+      }
+
+      .icon-bar .x:nth-of-type(2) {
+        transition: all 250ms ease-in-out;
+        transform-origin: center;
+        width: 0;
+      }
+
+      .icon-bar .x:nth-of-type(3) {
+        transition: all 250ms ease-in-out;
+        transform: rotate(-45deg);
+        transform-origin: bottom left;
+        width: 28px;
+      }
+
+      .sidebar {
+        transform: translateX(100%);
+        background-color: #333;
+      }
+
+      .sidebar:before {
+        z-index: -1;
+        content: '';
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        filter: invert(100%);
+        opacity: 0.1;
+        background-image: url('/images/logo.svg');
+        background-repeat: no-repeat;
+        background-position: bottom left;
+        background-size: 35%;
+      }
+
+      .sidebar.show {
+        animation: slide-in 0.25s ease-in-out forwards;
+      }
+
+      .sidebar.hide {
+        animation: slide-out 0.25s ease-in-out forwards;
+      }
+
+      @keyframes slide-in {
+        100% {
+          transform: translateX(0%);
+        }
+      }
+
+      @keyframes slide-out {
+        0% {
+          transform: translateX(0);
+        }
+        100% {
+          transform: translateX(100%);
+        }
+      }
+
+      @media (min-width: 640px) {
+        .sidebar:before {
+          background-size: 35%;
+        }
+      }
+      @media (min-width: 1024px) {
+        .sidebar:before {
+          background-size: 50%;
+        }
+      }
     </style>
   </head>
-  <body class="min-h-screen flex flex-row justify-center py-4">
+  <body class="flex flex-col min-h-screen overflow-x-hidden">
+    <header>
+      <nav
+        class="bg-white flex items-center justify-between flex-wrap shadow py-1 pl-1 pr-2"
+      >
+        <a href="/">
+          <img src="/images/logo.svg" alt="logo" />
+        </a>
+        <div class="relative icon-bar z-10">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </div>
+      </nav>
+    </header>
     <main
-      class="h-full flex flex-col gap-y-4 gap-x-8 items-center self-center font-serif md:flex-row md:justify-around lg:gap-10 md:px-4 lg:px-8"
+      class="flex flex-col grow py-4 gap-y-4 gap-x-8 items-center self-center font-serif md:flex-row md:justify-around lg:gap-10 md:px-4 lg:px-8"
     >
-      <h1 class="text-3xl font-semibold shrink">Audry Nyonata</h1>
-      <h2 class="text-base font-light shrink">Senior Software Engineer, Web</h2>
-      <div
-        class="flex flex-col gap-x-6 gap-y-4 md:flex-row lg:gap-14"
-        id="projects-container"
-      ></div>
+      <section
+        class="flex grow shrink-0 flex-col justify-center text-center basis-[140px] md:basis-[340px]"
+      >
+        <h1 class="text-3xl font-semibold shrink">Audry Nyonata</h1>
+        <h2 class="text-base font-light shrink m-1 md:m-2">
+          Senior Software Engineer, Web
+        </h2>
+        <div class="social-icon flex justify-center gap-3.5 p-1">
+          <a href="https://www.linkedin.com/in/audry-nyonata">
+            <img
+              class="opacity-50 hover:opacity-100"
+              src="/images/fa-icons/linkedin-in.svg"
+            />
+          </a>
+          <a href="https://github.com/audrynyonata">
+            <img
+              class="opacity-50 hover:opacity-100"
+              src="/images/fa-icons/github.svg"
+            />
+          </a>
+        </div>
+      </section>
+      <section class="flex grow">
+        <div
+          class="flex flex-1 flex-wrap lg:flex-nowrap flex-col gap-x-6 gap-y-4 md:flex-row lg:gap-14"
+          id="projects-container"
+        ></div>
+      </section>
     </main>
+    <footer class="bg-gray-200 p-2 md:p-3">
+      <div class="text-center font-mono text-xs text-gray-800 opacity-60">
+        Made with ♥️ plain old vanilla JavaScript
+      </div>
+    </footer>
+    <div
+      class="sidebar absolute right-[-1px] w-screen md:w-[65%] lg:w-[35%] h-full text-white flex flex-col items-end pl-16 pr-10 pt-16 overflow-auto"
+    >
+      <div
+        class="sidebar-bio flex flex-col font-serif text-right gap-4 text-base md:text-sm"
+      >
+        <p>
+          Hi! My name is Audry Nyonata. I'm a Senior Software Engineer with
+          expertise in full stack and front-end web development.
+        </p>
+        <p>
+          I am passionate about building websites that are easy-to-use and have
+          visually-pleasing user interfaces.
+        </p>
+        <p>Thank you for visiting my portfolio & have a nice day!</p>
+        <p>:)</p>
+      </div>
+      <hr class="w-40 mt-6 mb-4 lg:mt-10" />
+      <div class="font-serif mb-2 text-lg">Contacts</div>
+      <div class="sidebar-contacts font-serif flex gap-2 text-base md:text-sm">
+        <a
+          class="hover:underline"
+          href="https://www.linkedin.com/in/audry-nyonata"
+          >LinkedIn</a
+        >
+        |
+        <a class="hover:underline" href="https://github.com/audrynyonata"
+          >Github</a
+        >
+      </div>
+    </div>
     <script>
       const projects = [
         {
           name: 'JSBook',
           url: 'https://audrynyonata.github.io/jsbook/',
           githubUrl: 'https://github.com/audrynyonata/jsbook',
+          npmUrl: 'https://www.npmjs.com/package/jsbook-audrynyonata',
+          images: ['/images/sites/jsbook.jpg'],
           tags: [
             'react',
             'typescript',
@@ -43,12 +230,23 @@
           name: 'Next Blog',
           url: 'https://audrynyonata-next-blog.netlify.app',
           githubUrl: 'https://github.com/audrynyonata/learn-next-pages-router',
+          images: [
+            '/images/sites/next-blog-light.png',
+            '/images/sites/next-blog-dark.png',
+          ],
           tags: ['next', 'react', 'javascript', 'SSG', 'tailwind', 'netlify'],
         },
         {
           name: 'Next Reviews',
           url: 'https://audrynyonata-next-reviews.vercel.app/',
           githubUrl: 'https://github.com/audrynyonata/learn-next-app-router',
+          apiUrl: 'https://next-reviews-express.vercel.app/',
+          images: [
+            '/images/sites/next-reviews.jpg',
+            '/images/sites/next-reviews-1.jpg',
+            '/images/sites/next-reviews-2.jpg',
+          ],
+
           tags: [
             'next',
             'react',
@@ -64,18 +262,20 @@
 
       const container = document.querySelector('#projects-container');
       for (project of projects) {
-        const { name, url, githubUrl, tags } = project;
+        const { name, url, githubUrl, npmUrl, tags, images } = project;
 
         const item = document.createElement('div');
         item.className = 'project-root flex flex-col shrink';
         item.innerHTML = `
             <div class="text-base font-semibold"><a target="_blank" class="project-name"></a></div>
             <div class="mb-2"><a target="_blank" class="project-url text-sm text-blue-800 hover:text-blue-600"></a></div>
-            <div class="mb-2">
+            <div class="badge"></div>
+            <div class="slider mb-2"></div>
+              <div class="mb-2">
               <a target="_blank" class="project-gh text-xs text-gray-800 hover:text-gray-600">
-                Open in GitHub <svg xmlns="http://www.w3.org/2000/svg" class="inline relative -top-[1px] w-3 h-3" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                Open in GitHub <span class="icon-newtab"><svg xmlns="http://www.w3.org/2000/svg" class="inline relative -top-[1px] h-3 w-3" height="24" width="24" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
-                </svg>
+                </svg></span>
               </a>
             </div>
             <div class="project-tags flex flex-row flex-wrap gap-x-1.5 gap-y-1.5"></div>
@@ -91,8 +291,19 @@
         pUrl.href = url;
         pUrl.innerText = url;
 
-        const pgh = item.querySelector('.project-gh');
-        pgh.href = githubUrl;
+        if (npmUrl) {
+          const badge = item.querySelector('.badge');
+          badge.innerHTML = `
+            <a href="https://www.npmjs.com/package/jsbook-audrynyonata">
+              <img
+                src="https://img.shields.io/npm/v/jsbook-audrynyonata.svg"
+                alt="jsbook-audrynyonata"
+              />
+            </a>`;
+        }
+
+        const pGithub = item.querySelector('.project-gh');
+        pGithub.href = githubUrl;
 
         const pTags = item.querySelector('.project-tags');
         for (tag of tags) {
@@ -101,7 +312,39 @@
           pTag.innerText = tag;
           pTags.appendChild(pTag);
         }
+
+        const slider = item.querySelector('.slider');
+        const slide = document.createElement('div');
+        // slider.appendChild(slide);
+
+        for (image of images) {
+          const img = document.createElement('img');
+          img.src = image;
+          img.alt = '';
+          slide.appendChild(img);
+        }
       }
+    </script>
+    <script>
+      const body = document.querySelector('body');
+      const barIcon = document.querySelector('.icon-bar');
+      const sidebar = document.querySelector('.sidebar');
+
+      barIcon.addEventListener('click', () => {
+        const bars = document.querySelectorAll('.bar');
+        bars.forEach((b) => b.classList.toggle('x'));
+
+        barIcon.classList.toggle('white');
+        sidebar.classList.toggle('show');
+        body.classList.toggle('modal-open');
+
+        const isShow = sidebar.classList.contains('show');
+        if (isShow) {
+          sidebar.classList.remove('hide');
+        } else {
+          sidebar.classList.add('hide');
+        }
+      });
     </script>
   </body>
 </html>
